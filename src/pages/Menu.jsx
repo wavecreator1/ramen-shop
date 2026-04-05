@@ -44,10 +44,10 @@ function MenuCard({ item, image }) {
 function MenuSection({ section, sectionImages }) {
   return (
     <section className="mb-16">
-      <h2 className="text-3xl font-bold text-charcoal font-display text-center mb-2">{section.title}</h2>
+      <h2 className="text-2xl sm:text-3xl font-bold text-charcoal font-display text-center mb-2">{section.title}</h2>
       <p className="text-muted text-center mb-2">{section.subtitle}</p>
       <div className="w-16 h-0.5 bg-gold mx-auto mb-10"></div>
-      <div className="grid grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {section.items.map((item, index) => (
           <MenuCard key={item.name} item={item} image={sectionImages[index]} />
         ))}
@@ -65,11 +65,11 @@ function Menu() {
         style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1614563637806-1d0e645e0940?w=1200&h=400&fit=crop)' }}>
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative text-center text-white z-10">
-          <h1 className="text-5xl font-bold font-display mb-2">{t.menu.title}</h1>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-display mb-2">{t.menu.title}</h1>
           <p className="text-lg text-white/80">{t.menu.subtitle}</p>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-8 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 py-8 sm:py-16">
         <MenuSection section={t.menu.signature} sectionImages={images.signature} />
         <MenuSection section={t.menu.seasonal} sectionImages={images.seasonal} />
         <MenuSection section={t.menu.sides} sectionImages={images.sides} />

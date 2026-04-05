@@ -6,10 +6,10 @@ function Footer() {
 
   return (
     <footer className="bg-charcoal text-white">
-      <div className="max-w-7xl mx-auto px-8 py-12">
-        <div className="grid grid-cols-3 gap-12">
-          <div>
-            <div className="flex items-center gap-3 mb-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12">
+          <div className="text-center sm:text-left">
+            <div className="flex items-center gap-3 mb-4 justify-center sm:justify-start">
               <span className="text-2xl">&#127836;</span>
               <h3 className="text-xl font-bold text-white m-0 font-display">
                 {t.footer.brand}
@@ -19,7 +19,7 @@ function Footer() {
               {t.footer.description}
             </p>
           </div>
-          <div>
+          <div className="text-center sm:text-left">
             <h4 className="text-gold font-semibold text-sm tracking-wider mb-4">{t.footer.quickLinks}</h4>
             <div className="flex flex-col gap-2">
               <Link to="/menu" className="text-white/70 hover:text-white text-sm no-underline transition-colors">{t.footer.menu}</Link>
@@ -27,7 +27,7 @@ function Footer() {
               <Link to="/reservations" className="text-white/70 hover:text-white text-sm no-underline transition-colors">{t.footer.reservations}</Link>
             </div>
           </div>
-          <div>
+          <div className="text-center sm:text-left">
             <h4 className="text-gold font-semibold text-sm tracking-wider mb-4">{t.footer.visitUs}</h4>
             <div className="text-white/70 text-sm space-y-1">
               <p>{t.footer.address1}</p>
@@ -35,7 +35,7 @@ function Footer() {
               <p className="mt-3">{t.footer.phone}</p>
               <p>{t.footer.email}</p>
             </div>
-            <div className="flex gap-4 mt-4">
+            <div className="flex flex-wrap gap-4 mt-4 justify-center sm:justify-start">
               <a href="#" className="text-white/50 hover:text-white text-sm no-underline transition-colors">{t.footer.instagram}</a>
               <a href="#" className="text-white/50 hover:text-white text-sm no-underline transition-colors">{t.footer.facebook}</a>
               <a href="#" className="text-white/50 hover:text-white text-sm no-underline transition-colors">{t.footer.twitter}</a>
