@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { useLanguage } from '../context/LanguageContext'
 
 function Navbar() {
   const location = useLocation()
+  const { language, toggleLanguage, t } = useLanguage()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const links = [
-    { to: '/menu', label: 'MENU' },
-    { to: '/our-story', label: 'OUR STORY' },
-    { to: '/reservations', label: 'RESERVATIONS' },
+    { to: '/menu', label: t.navbar.menu },
+    { to: '/our-story', label: t.navbar.ourStory },
+    { to: '/reservations', label: t.navbar.reservations },
   ]
 
   return (
@@ -18,15 +20,15 @@ function Navbar() {
           <span className="text-3xl">&#127836;</span>
           <div>
             <h1 className="text-2xl font-bold text-white m-0 leading-tight tracking-wide font-display">
-              ICHIBAN RAMEN
+              {t.navbar.brand}
             </h1>
             <p className="text-gold text-xs tracking-widest m-0">
-              AUTHENTIC JAPANESE NOODLES
+              {t.navbar.tagline}
             </p>
           </div>
         </Link>
         {/* Desktop nav links */}
-        <div className="hidden md:flex gap-8">
+        <div className="hidden md:flex gap-8 items-center">
           {links.map((link) => (
             <Link
               key={link.to}
@@ -40,6 +42,12 @@ function Navbar() {
               {link.label}
             </Link>
           ))}
+          <button
+            onClick={toggleLanguage}
+            className="text-sm font-medium tracking-wide text-white/80 hover:text-white transition-colors bg-transparent border border-white/30 rounded px-3 py-1 cursor-pointer"
+          >
+            {language === 'en' ? '日本語' : 'English'}
+          </button>
         </div>
         {/* Hamburger button */}
         <button
@@ -74,6 +82,12 @@ function Navbar() {
                 {link.label}
               </Link>
             ))}
+            <button
+              onClick={() => { toggleLanguage(); setMobileMenuOpen(false); }}
+              className="block py-3 px-4 text-sm font-medium tracking-wide text-white/80 hover:text-white hover:bg-white/5 transition-colors bg-transparent border-none rounded-lg cursor-pointer text-left"
+            >
+              {language === 'en' ? '日本語' : 'English'}
+            </button>
           </div>
         </div>
       )}
