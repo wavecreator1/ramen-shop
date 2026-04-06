@@ -185,7 +185,7 @@ function Reservations() {
                   <a href="mailto:reservations@ichibanramen.com" className="text-deep-red hover:underline">
                     reservations@ichibanramen.com
                   </a>{' '}
-                  or call (718) 555-0188.
+                  {t.reservations.largePartiesPhone}
                 </p>
               </div>
             </div>
