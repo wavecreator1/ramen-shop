@@ -12,11 +12,18 @@
   --color-muted: #6B7280;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   font-family: var(--font-body);
+  font-size: 16px;
   color: var(--color-charcoal);
   background: white;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
 }
 
 * {
