@@ -93,6 +93,32 @@
           "description": "Golden octopus balls drizzled with takoyaki sauce, kewpie mayo, and bonito flakes."
         }
       ]
+    },
+    "drinks": {
+      "title": "Drinks",
+      "subtitle": "Refresh and complement your meal",
+      "items": [
+        {
+          "name": "Japanese Draft Beer",
+          "price": 8,
+          "description": "Crisp Asahi or Sapporo on tap, the perfect ramen companion."
+        },
+        {
+          "name": "Sake Flight",
+          "price": 14,
+          "description": "Three curated sakes: junmai, ginjo, and daiginjo from renowned breweries."
+        },
+        {
+          "name": "Yuzu Lemonade",
+          "price": 6,
+          "description": "House-made sparkling lemonade with fresh yuzu citrus and a hint of honey."
+        },
+        {
+          "name": "Matcha Latte",
+          "price": 7,
+          "description": "Ceremonial-grade matcha whisked with steamed oat milk, served hot or iced."
+        }
+      ]
     }
   },
   "ourStory": {
@@ -110,6 +136,24 @@
     "noodlesText": "We make our noodles fresh every morning using a custom blend of premium Japanese flour, kansui mineral water, and a technique passed down through generations. Each style of ramen gets its own noodle: thin and straight for tonkotsu, wavy and chewy for miso, and medium-width for shoyu. The right noodle transforms a good bowl into an unforgettable one, and we obsess over getting it perfect every single day.",
     "milestonesTitle": "Key Milestones",
     "milestonesSubtitle": "Key milestones in the Ichiban story",
+    "testimonialsTitle": "What Our Guests Say",
+    "testimonials": [
+      {
+        "quote": "The best ramen I've had outside of Japan. The tonkotsu broth is absolutely transcendent.",
+        "author": "Sarah M.",
+        "source": "Google Reviews"
+      },
+      {
+        "quote": "Every bowl feels like a warm hug. The Black Garlic Tonkotsu is life-changing.",
+        "author": "James K.",
+        "source": "Yelp"
+      },
+      {
+        "quote": "Incredible attention to detail. You can taste the 18 hours in every spoonful of broth.",
+        "author": "Emily R.",
+        "source": "New York Magazine"
+      }
+    ],
     "milestones": [
       { "year": "2013", "title": "The Journey Begins", "description": "Chef Takeshi Yamamoto travels to Japan to apprentice under ramen masters in Tokyo and Fukuoka." },
       { "year": "2014", "title": "Brooklyn Pop-Up", "description": "First Ichiban Ramen pop-up at Brooklyn food markets draws lines around the block." },

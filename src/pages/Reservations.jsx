@@ -23,16 +23,16 @@ function Reservations() {
 
   return (
     <div>
-      <div className="relative h-64 bg-cover bg-center flex items-center justify-center"
+      <div className="relative h-72 bg-cover bg-center flex items-center justify-center"
         style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&h=400&fit=crop)' }}>
-        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 hero-gradient"></div>
         <div className="relative text-center text-white z-10">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-display mb-2">{t.reservations.title}</h1>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-display mb-3">{t.reservations.title}</h1>
           <p className="text-lg text-white/80">{t.reservations.subtitle}</p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 py-8 sm:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 py-8 sm:py-16 animate-fade-in-up">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
           {/* Booking Form */}
           <div>
@@ -155,7 +155,7 @@ function Reservations() {
           <div>
             <h2 className="text-2xl sm:text-3xl font-bold text-charcoal font-display mb-6">{t.reservations.findUs}</h2>
             <div className="space-y-6">
-              <div className="bg-white rounded-xl shadow-md overflow-hidden">
+              <div className="card-hover bg-white rounded-xl shadow-md overflow-hidden">
                 <div className="bg-light-gold h-56 flex items-center justify-center">
                   <div className="text-center">
                     <div className="text-4xl mb-2">&#128205;</div>

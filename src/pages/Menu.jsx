@@ -17,23 +17,31 @@ const images = {
     'https://images.unsplash.com/photo-1564093497595-593b96d80571?w=400&h=300&fit=crop',
     'https://images.unsplash.com/photo-1609183480237-ccfc2683c9df?w=400&h=300&fit=crop',
   ],
+  drinks: [
+    'https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=400&h=300&fit=crop',
+  ],
 }
 
 function MenuCard({ item, image }) {
   return (
-    <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-      <img
-        src={image}
-        alt={item.name}
-        className="w-full h-48 object-cover"
-        onError={(e) => {
-          e.target.src = `https://placehold.co/400x300/F5E6C8/8B6914?text=${encodeURIComponent(item.name)}`
-        }}
-      />
-      <div className="p-4">
+    <div className="card-hover bg-white rounded-xl overflow-hidden shadow-md">
+      <div className="overflow-hidden">
+        <img
+          src={image}
+          alt={item.name}
+          className="w-full h-48 object-cover transition-transform duration-500 hover:scale-105"
+          onError={(e) => {
+            e.target.src = `https://placehold.co/400x300/F5E6C8/8B6914?text=${encodeURIComponent(item.name)}`
+          }}
+        />
+      </div>
+      <div className="p-5">
         <div className="flex justify-between items-start mb-2">
           <h3 className="text-lg font-semibold text-charcoal font-display">{item.name}</h3>
-          <span className="text-deep-red font-bold">${item.price}</span>
+          <span className="text-deep-red font-bold text-lg">${item.price}</span>
         </div>
         <p className="text-muted text-sm leading-relaxed">{item.description}</p>
       </div>
@@ -43,7 +51,7 @@ function MenuCard({ item, image }) {
 
 function MenuSection({ section, sectionImages }) {
   return (
-    <section className="mb-16">
+    <section className="mb-16 animate-fade-in-up">
       <h2 className="text-2xl sm:text-3xl font-bold text-charcoal font-display text-center mb-2">{section.title}</h2>
       <p className="text-muted text-center mb-2">{section.subtitle}</p>
       <div className="w-16 h-0.5 bg-gold mx-auto mb-10"></div>
@@ -61,11 +69,11 @@ function Menu() {
 
   return (
     <div>
-      <div className="relative h-64 bg-cover bg-center flex items-center justify-center"
+      <div className="relative h-72 bg-cover bg-center flex items-center justify-center"
         style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1614563637806-1d0e645e0940?w=1200&h=400&fit=crop)' }}>
-        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 hero-gradient"></div>
         <div className="relative text-center text-white z-10">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-display mb-2">{t.menu.title}</h1>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-display mb-3">{t.menu.title}</h1>
           <p className="text-lg text-white/80">{t.menu.subtitle}</p>
         </div>
       </div>
@@ -73,6 +81,7 @@ function Menu() {
         <MenuSection section={t.menu.signature} sectionImages={images.signature} />
         <MenuSection section={t.menu.seasonal} sectionImages={images.seasonal} />
         <MenuSection section={t.menu.sides} sectionImages={images.sides} />
+        <MenuSection section={t.menu.drinks} sectionImages={images.drinks} />
       </div>
     </div>
   )
