@@ -45,14 +45,16 @@ function Reservations() {
                     {t.reservations.confirmTitle}
                   </h3>
                   <p className="text-muted mb-2">
-                    {t.reservations.confirmMsg
-                      .replace('{name}', formData.name)
-                      .replace('{guests}', formData.guests)
-                      .replace('{date}', formData.date)
-                      .replace('{time}', formData.time)}
+                    {t.reservations.confirmMsg.replace(
+                      /\{(name|guests|date|time)\}/g,
+                      (match) => ({ '{name}': formData.name, '{guests}': formData.guests, '{date}': formData.date, '{time}': formData.time })[match]
+                    )}
                   </p>
                   <p className="text-muted text-sm">
-                    {t.reservations.confirmEmail.replace('{email}', formData.email)}
+                    {t.reservations.confirmEmail.replace(
+                      /\{email\}/g,
+                      formData.email
+                    )}
                   </p>
                   <button
                     onClick={() => {
