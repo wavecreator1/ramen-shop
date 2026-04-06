@@ -6,12 +6,12 @@ function Footer() {
 
   return (
     <footer className="bg-charcoal text-white">
-      <div className="max-w-7xl mx-auto px-8 py-12">
-        <div className="grid grid-cols-3 gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 lg:py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12">
           <div>
             <div className="flex items-center gap-3 mb-4">
               <span className="text-2xl">&#127836;</span>
-              <h3 className="text-xl font-bold text-white m-0 font-display">
+              <h3 className="text-lg sm:text-xl font-bold text-white m-0 font-display">
                 {t.brand.name}
               </h3>
             </div>
@@ -42,8 +42,8 @@ function Footer() {
             </div>
           </div>
         </div>
-        <div className="border-t border-white/10 mt-10 pt-6 text-center">
-          <p className="text-white/40 text-sm">{t.footer.copyright}</p>
+        <div className="border-t border-white/10 mt-8 sm:mt-10 pt-6 text-center">
+          <p className="text-white/40 text-xs sm:text-sm">{t.footer.copyright}</p>
         </div>
       </div>
     </footer>
