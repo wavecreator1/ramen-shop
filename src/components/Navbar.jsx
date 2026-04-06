@@ -16,7 +16,7 @@ function Navbar() {
   return (
     <nav className="bg-charcoal">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 sm:gap-3 no-underline">
+        <Link to="/" className="flex items-center gap-2 sm:gap-3 no-underline" onClick={() => setMenuOpen(false)}>
           <span className="text-2xl sm:text-3xl">&#127836;</span>
           <div>
             <h1 className="text-xl sm:text-2xl font-bold text-white m-0 leading-tight tracking-wide font-display">
