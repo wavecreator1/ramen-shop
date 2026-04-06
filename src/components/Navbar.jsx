@@ -3,7 +3,7 @@ import { useLanguage } from '../context/LanguageContext'
 
 function Navbar() {
   const location = useLocation()
-  const { t } = useLanguage()
+  const { t, language, toggleLanguage } = useLanguage()
 
   const links = [
     { to: '/menu', label: t.nav.menu },
@@ -25,7 +25,7 @@ function Navbar() {
             </p>
           </div>
         </Link>
-        <div className="flex gap-8">
+        <div className="flex items-center gap-8">
           {links.map((link) => (
             <Link
               key={link.to}
@@ -39,6 +39,12 @@ function Navbar() {
               {link.label}
             </Link>
           ))}
+          <button
+            onClick={toggleLanguage}
+            className="text-sm font-medium tracking-wide text-white/80 hover:text-white transition-colors bg-white/10 hover:bg-white/20 px-3 py-1 rounded cursor-pointer border-none"
+          >
+            {language === 'en' ? 'JP' : 'EN'}
+          </button>
         </div>
       </div>
     </nav>
