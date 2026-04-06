@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 function Navbar() {
   const location = useLocation()
+  const [menuOpen, setMenuOpen] = useState(false)
 
   const links = [
     { to: '/menu', label: 'MENU' },
@@ -23,7 +25,8 @@ function Navbar() {
             </p>
           </div>
         </Link>
-        <div className="flex gap-8">
+        <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-white text-2xl">☰</button>
+        <div className="hidden md:flex gap-8">
           {links.map((link) => (
             <Link
               key={link.to}
@@ -39,6 +42,24 @@ function Navbar() {
           ))}
         </div>
       </div>
+      {menuOpen && (
+        <div className="md:hidden flex flex-col gap-4 px-8 pb-5">
+          {links.map((link) => (
+            <Link
+              key={link.to}
+              to={link.to}
+              onClick={() => setMenuOpen(false)}
+              className={`text-sm font-medium tracking-wide no-underline transition-colors ${
+                location.pathname === link.to
+                  ? 'text-gold'
+                  : 'text-white/80 hover:text-white'
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      )}
     </nav>
   )
 }
