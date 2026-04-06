@@ -1,12 +1,14 @@
 import { Link, useLocation } from 'react-router-dom'
+import { useLanguage } from '../i18n/useLanguage'
 
 function Navbar() {
   const location = useLocation()
+  const { language, toggleLanguage, t } = useLanguage()
 
   const links = [
-    { to: '/menu', label: 'MENU' },
-    { to: '/our-story', label: 'OUR STORY' },
-    { to: '/reservations', label: 'RESERVATIONS' },
+    { to: '/menu', label: t.nav.menu },
+    { to: '/our-story', label: t.nav.ourStory },
+    { to: '/reservations', label: t.nav.reservations },
   ]
 
   return (
@@ -19,11 +21,11 @@ function Navbar() {
               ICHIBAN RAMEN
             </h1>
             <p className="text-gold text-xs tracking-widest m-0">
-              AUTHENTIC JAPANESE NOODLES
+              {t.nav.subtitle}
             </p>
           </div>
         </Link>
-        <div className="flex gap-8">
+        <div className="flex items-center gap-8">
           {links.map((link) => (
             <Link
               key={link.to}
@@ -37,6 +39,14 @@ function Navbar() {
               {link.label}
             </Link>
           ))}
+          <button
+            onClick={toggleLanguage}
+            className="ml-2 flex items-center gap-1 text-xs font-bold tracking-wide border border-gold/50 rounded-full px-3 py-1.5 transition-colors cursor-pointer bg-transparent hover:bg-gold/10"
+          >
+            <span className={language === 'en' ? 'text-gold' : 'text-white/60'}>EN</span>
+            <span className="text-white/40">/</span>
+            <span className={language === 'ja' ? 'text-gold' : 'text-white/60'}>JA</span>
+          </button>
         </div>
       </div>
     </nav>
