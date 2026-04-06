@@ -85,6 +85,7 @@ const translations = {
       largeTitle: 'Large Parties',
       largeText: 'For groups of 9 or more, please contact us directly at',
       largeEmail: 'reservations@ichibanramen.com',
+      largeOr: 'or call',
       largePhone: '(718) 555-0188',
     },
     footer: {
@@ -187,6 +188,7 @@ const translations = {
       largeTitle: '大人数でのご予約',
       largeText: '9名様以上のご予約は、お手数ですが直接ご連絡ください：',
       largeEmail: 'reservations@ichibanramen.com',
+      largeOr: 'またはお電話ください：',
       largePhone: '(718) 555-0188',
     },
     footer: {

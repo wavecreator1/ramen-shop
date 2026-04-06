@@ -181,7 +181,7 @@ function Reservations() {
                   <a href={`mailto:${t.reservations.largeEmail}`} className="text-deep-red hover:underline">
                     {t.reservations.largeEmail}
                   </a>{' '}
-                  or call {t.reservations.largePhone}.
+                  {t.reservations.largeOr} {t.reservations.largePhone}.
                 </p>
               </div>
             </div>
