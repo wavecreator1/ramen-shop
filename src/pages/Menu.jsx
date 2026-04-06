@@ -1,82 +1,34 @@
-const menuData = {
-  signature: {
-    title: 'Signature Bowls',
-    subtitle: 'Our most beloved creations, perfected over the years',
-    items: [
-      {
-        name: 'Tonkotsu Classic',
-        price: 16,
-        description: 'Rich, creamy pork bone broth simmered for 18 hours with thin noodles, chashu pork belly, soft-boiled egg, and scallions.',
-        image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=300&fit=crop',
-      },
-      {
-        name: 'Spicy Miso Ramen',
-        price: 17,
-        description: 'Bold miso broth with chili oil, ground pork, corn, bean sprouts, butter, and wavy noodles.',
-        image: 'https://images.unsplash.com/photo-1591814468924-caf88d1232e1?w=400&h=300&fit=crop',
-      },
-      {
-        name: 'Shoyu Ramen',
-        price: 15,
-        description: 'Clear soy sauce-based broth with chicken, bamboo shoots, nori, naruto fish cake, and straight noodles.',
-        image: 'https://images.unsplash.com/photo-1617093727343-374698b1b08d?w=400&h=300&fit=crop',
-      },
-      {
-        name: 'Black Garlic Tonkotsu',
-        price: 19,
-        description: 'Our signature tonkotsu elevated with roasted black garlic oil, wood ear mushrooms, and extra chashu.',
-        image: 'https://images.unsplash.com/photo-1557872943-16a5ac26437e?w=400&h=300&fit=crop',
-      },
-    ],
-  },
-  seasonal: {
-    title: 'Seasonal Specials',
-    subtitle: 'Limited-time offerings inspired by the season',
-    items: [
-      {
-        name: 'Yuzu Shio Ramen',
-        price: 18,
-        description: 'Light salt-based broth brightened with fresh yuzu citrus, topped with seared chicken and spring vegetables.',
-        image: 'https://images.unsplash.com/photo-1623341214825-9f4f963727da?w=400&h=300&fit=crop',
-      },
-      {
-        name: 'Tantanmen',
-        price: 18,
-        description: 'Creamy sesame broth with Sichuan peppercorn, seasoned minced pork, bok choy, and chili threads.',
-        image: 'https://images.unsplash.com/photo-1585032226651-759b368d7246?w=400&h=300&fit=crop',
-      },
-    ],
-  },
-  sides: {
-    title: 'Sides & Small Plates',
-    subtitle: 'The perfect companions to your ramen',
-    items: [
-      {
-        name: 'Gyoza (6 pcs)',
-        price: 9,
-        description: 'Pan-fried pork and cabbage dumplings served with ponzu dipping sauce.',
-        image: 'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=400&h=300&fit=crop',
-      },
-      {
-        name: 'Karaage Chicken',
-        price: 11,
-        description: 'Crispy Japanese fried chicken marinated in ginger and soy, served with kewpie mayo.',
-        image: 'https://images.unsplash.com/photo-1562967914-608f82629710?w=400&h=300&fit=crop',
-      },
-      {
-        name: 'Edamame',
-        price: 6,
-        description: 'Steamed young soybeans tossed with sea salt and a hint of chili flakes.',
-        image: 'https://images.unsplash.com/photo-1564093497595-593b96d80571?w=400&h=300&fit=crop',
-      },
-      {
-        name: 'Takoyaki (6 pcs)',
-        price: 10,
-        description: 'Golden octopus balls drizzled with takoyaki sauce, kewpie mayo, and bonito flakes.',
-        image: 'https://images.unsplash.com/photo-1609183480237-ccfc2683c9df?w=400&h=300&fit=crop',
-      },
-    ],
-  },
+import { useLanguage } from '../context/LanguageContext'
+
+const menuImages = {
+  signature: [
+    'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1591814468924-caf88d1232e1?w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1617093727343-374698b1b08d?w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1557872943-16a5ac26437e?w=400&h=300&fit=crop',
+  ],
+  seasonal: [
+    'https://images.unsplash.com/photo-1623341214825-9f4f963727da?w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1585032226651-759b368d7246?w=400&h=300&fit=crop',
+  ],
+  sides: [
+    'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1562967914-608f82629710?w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1564093497595-593b96d80571?w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1609183480237-ccfc2683c9df?w=400&h=300&fit=crop',
+  ],
+}
+
+const menuPrices = {
+  signature: [16, 17, 15, 19],
+  seasonal: [18, 18],
+  sides: [9, 11, 6, 10],
+}
+
+const itemKeys = {
+  signature: ['tonkotsuClassic', 'spicyMiso', 'shoyu', 'blackGarlic'],
+  seasonal: ['yuzuShio', 'tantanmen'],
+  sides: ['gyoza', 'karaage', 'edamame', 'takoyaki'],
 }
 
 function MenuCard({ item }) {
@@ -85,30 +37,30 @@ function MenuCard({ item }) {
       <img
         src={item.image}
         alt={item.name}
-        className="w-full h-48 sm:h-48 object-cover"
+        className="w-full h-48 object-cover"
         onError={(e) => {
           e.target.src = `https://placehold.co/400x300/F5E6C8/8B6914?text=${encodeURIComponent(item.name)}`
         }}
       />
-      <div className="p-4 sm:p-4">
+      <div className="p-4">
         <div className="flex justify-between items-start mb-2">
           <h3 className="text-base sm:text-lg font-semibold text-charcoal font-display">{item.name}</h3>
           <span className="text-deep-red font-bold text-base">${item.price}</span>
         </div>
-        <p className="text-muted text-sm sm:text-sm leading-relaxed">{item.description}</p>
+        <p className="text-muted text-sm leading-relaxed">{item.description}</p>
       </div>
     </div>
   )
 }
 
-function MenuSection({ section }) {
+function MenuSection({ title, subtitle, items }) {
   return (
     <section className="mb-10 sm:mb-16">
-      <h2 className="text-2xl sm:text-3xl font-bold text-charcoal font-display text-center mb-2">{section.title}</h2>
-      <p className="text-muted text-center mb-2 text-sm sm:text-base">{section.subtitle}</p>
+      <h2 className="text-2xl sm:text-3xl font-bold text-charcoal font-display text-center mb-2">{title}</h2>
+      <p className="text-muted text-center mb-2 text-sm sm:text-base">{subtitle}</p>
       <div className="w-16 h-0.5 bg-gold mx-auto mb-10"></div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {section.items.map((item) => (
+        {items.map((item) => (
           <MenuCard key={item.name} item={item} />
         ))}
       </div>
@@ -117,20 +69,40 @@ function MenuSection({ section }) {
 }
 
 function Menu() {
+  const { t } = useLanguage()
+
+  const buildSection = (category) => {
+    const keys = itemKeys[category]
+    return {
+      title: t.menu[category].title,
+      subtitle: t.menu[category].subtitle,
+      items: keys.map((key, i) => ({
+        name: t.menu.items[key].name,
+        description: t.menu.items[key].description,
+        price: menuPrices[category][i],
+        image: menuImages[category][i],
+      })),
+    }
+  }
+
+  const signature = buildSection('signature')
+  const seasonal = buildSection('seasonal')
+  const sides = buildSection('sides')
+
   return (
     <div>
       <div className="relative h-48 sm:h-64 bg-cover bg-center flex items-center justify-center"
         style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1614563637806-1d0e645e0940?w=1200&h=400&fit=crop)' }}>
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative text-center text-white z-10 px-4">
-          <h1 className="text-3xl sm:text-5xl font-bold font-display mb-2">Our Menu</h1>
-          <p className="text-base sm:text-lg text-white/80">Handcrafted bowls made with soul</p>
+          <h1 className="text-3xl sm:text-5xl font-bold font-display mb-2">{t.menu.heroTitle}</h1>
+          <p className="text-base sm:text-lg text-white/80">{t.menu.heroSubtitle}</p>
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16">
-        <MenuSection section={menuData.signature} />
-        <MenuSection section={menuData.seasonal} />
-        <MenuSection section={menuData.sides} />
+        <MenuSection {...signature} />
+        <MenuSection {...seasonal} />
+        <MenuSection {...sides} />
       </div>
     </div>
   )

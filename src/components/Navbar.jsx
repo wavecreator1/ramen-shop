@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { useLanguage } from '../context/LanguageContext'
 
 function Navbar() {
   const location = useLocation()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { language, toggleLanguage, t } = useLanguage()
 
   const links = [
-    { to: '/menu', label: 'MENU' },
-    { to: '/our-story', label: 'OUR STORY' },
-    { to: '/reservations', label: 'RESERVATIONS' },
+    { to: '/menu', label: t.nav.menu },
+    { to: '/our-story', label: t.nav.ourStory },
+    { to: '/reservations', label: t.nav.reservations },
   ]
 
   return (
@@ -18,16 +20,16 @@ function Navbar() {
           <span className="text-2xl sm:text-3xl">&#127836;</span>
           <div>
             <h1 className="text-xl sm:text-2xl font-bold text-white m-0 leading-tight tracking-wide font-display">
-              ICHIBAN RAMEN
+              {t.nav.brandName}
             </h1>
             <p className="text-gold text-xs tracking-widest m-0">
-              AUTHENTIC JAPANESE NOODLES
+              {t.nav.brandTagline}
             </p>
           </div>
         </Link>
 
         {/* Desktop nav links */}
-        <div className="hidden md:flex gap-8">
+        <div className="hidden md:flex items-center gap-8">
           {links.map((link) => (
             <Link
               key={link.to}
@@ -41,6 +43,12 @@ function Navbar() {
               {link.label}
             </Link>
           ))}
+          <button
+            onClick={toggleLanguage}
+            className="ml-2 px-3 py-1.5 text-xs font-semibold tracking-wide border border-gold/60 rounded-md transition-colors cursor-pointer bg-transparent text-gold hover:bg-gold hover:text-charcoal"
+          >
+            {language === 'en' ? '日本語' : 'EN'}
+          </button>
         </div>
 
         {/* Mobile hamburger button */}
@@ -71,7 +79,7 @@ function Navbar() {
       {/* Mobile menu */}
       <div
         className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-          mobileMenuOpen ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'
+          mobileMenuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
         <div className="px-4 pb-4 flex flex-col gap-1 border-t border-white/10">
@@ -89,6 +97,15 @@ function Navbar() {
               {link.label}
             </Link>
           ))}
+          <button
+            onClick={() => {
+              toggleLanguage()
+              setMobileMenuOpen(false)
+            }}
+            className="mt-1 mx-4 px-3 py-2 text-xs font-semibold tracking-wide border border-gold/60 rounded-md transition-colors cursor-pointer bg-transparent text-gold hover:bg-gold hover:text-charcoal text-center"
+          >
+            {language === 'en' ? '日本語に切替' : 'Switch to EN'}
+          </button>
         </div>
       </div>
     </nav>
