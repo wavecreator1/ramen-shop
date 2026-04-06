@@ -85,17 +85,17 @@ function MenuCard({ item }) {
       <img
         src={item.image}
         alt={item.name}
-        className="w-full h-48 object-cover"
+        className="w-full h-48 sm:h-48 object-cover"
         onError={(e) => {
           e.target.src = `https://placehold.co/400x300/F5E6C8/8B6914?text=${encodeURIComponent(item.name)}`
         }}
       />
-      <div className="p-4">
+      <div className="p-4 sm:p-4">
         <div className="flex justify-between items-start mb-2">
-          <h3 className="text-lg font-semibold text-charcoal font-display">{item.name}</h3>
-          <span className="text-deep-red font-bold">${item.price}</span>
+          <h3 className="text-base sm:text-lg font-semibold text-charcoal font-display">{item.name}</h3>
+          <span className="text-deep-red font-bold text-base">${item.price}</span>
         </div>
-        <p className="text-muted text-sm leading-relaxed">{item.description}</p>
+        <p className="text-muted text-sm sm:text-sm leading-relaxed">{item.description}</p>
       </div>
     </div>
   )
@@ -103,11 +103,11 @@ function MenuCard({ item }) {
 
 function MenuSection({ section }) {
   return (
-    <section className="mb-16">
-      <h2 className="text-3xl font-bold text-charcoal font-display text-center mb-2">{section.title}</h2>
-      <p className="text-muted text-center mb-2">{section.subtitle}</p>
+    <section className="mb-10 sm:mb-16">
+      <h2 className="text-2xl sm:text-3xl font-bold text-charcoal font-display text-center mb-2">{section.title}</h2>
+      <p className="text-muted text-center mb-2 text-sm sm:text-base">{section.subtitle}</p>
       <div className="w-16 h-0.5 bg-gold mx-auto mb-10"></div>
-      <div className="grid grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {section.items.map((item) => (
           <MenuCard key={item.name} item={item} />
         ))}
@@ -119,15 +119,15 @@ function MenuSection({ section }) {
 function Menu() {
   return (
     <div>
-      <div className="relative h-64 bg-cover bg-center flex items-center justify-center"
+      <div className="relative h-48 sm:h-64 bg-cover bg-center flex items-center justify-center"
         style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1614563637806-1d0e645e0940?w=1200&h=400&fit=crop)' }}>
         <div className="absolute inset-0 bg-black/50"></div>
-        <div className="relative text-center text-white z-10">
-          <h1 className="text-5xl font-bold font-display mb-2">Our Menu</h1>
-          <p className="text-lg text-white/80">Handcrafted bowls made with soul</p>
+        <div className="relative text-center text-white z-10 px-4">
+          <h1 className="text-3xl sm:text-5xl font-bold font-display mb-2">Our Menu</h1>
+          <p className="text-base sm:text-lg text-white/80">Handcrafted bowls made with soul</p>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-8 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16">
         <MenuSection section={menuData.signature} />
         <MenuSection section={menuData.seasonal} />
         <MenuSection section={menuData.sides} />
