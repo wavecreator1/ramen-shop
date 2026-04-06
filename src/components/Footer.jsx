@@ -32,8 +32,8 @@ function Footer() {
             <div className="text-white/70 text-sm space-y-1">
               <p>{t.reservations.address}</p>
               <p>{t.reservations.city}</p>
-              <p className="mt-3">Phone: (718) 555-0188</p>
-              <p>Email: hello@ichibanramen.com</p>
+              <p className="mt-3">{t.footer.phone}</p>
+              <p>{t.footer.email}</p>
             </div>
             <div className="flex gap-4 mt-4">
               <a href="#" className="text-white/50 hover:text-white text-sm no-underline transition-colors">Instagram</a>
