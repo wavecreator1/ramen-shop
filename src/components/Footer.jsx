@@ -6,8 +6,8 @@ function Footer() {
 
   return (
     <footer className="bg-charcoal text-white">
-      <div className="max-w-7xl mx-auto px-8 py-12">
-        <div className="grid grid-cols-3 gap-12">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           <div>
             <div className="flex items-center gap-3 mb-4">
               <span className="text-2xl">&#127836;</span>
@@ -42,7 +42,7 @@ function Footer() {
             </div>
           </div>
         </div>
-        <div className="border-t border-white/10 mt-10 pt-6 text-center">
+        <div className="border-t border-white/10 mt-8 md:mt-10 pt-6 text-center">
           <p className="text-white/40 text-sm">{t.footer.copyright}</p>
         </div>
       </div>
