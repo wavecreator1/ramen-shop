@@ -23,20 +23,20 @@ function Reservations() {
 
   return (
     <div>
-      <div className="relative h-64 bg-cover bg-center flex items-center justify-center"
+      <div className="relative h-40 md:h-64 bg-cover bg-center flex items-center justify-center"
         style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&h=400&fit=crop)' }}>
         <div className="absolute inset-0 bg-black/50"></div>
-        <div className="relative text-center text-white z-10">
-          <h1 className="text-5xl font-bold font-display mb-2">{t.reservations.heroTitle}</h1>
-          <p className="text-lg text-white/80">{t.reservations.heroSubtitle}</p>
+        <div className="relative text-center text-white z-10 px-4">
+          <h1 className="text-3xl md:text-5xl font-bold font-display mb-2">{t.reservations.heroTitle}</h1>
+          <p className="text-sm md:text-lg text-white/80">{t.reservations.heroSubtitle}</p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-8 py-16">
-        <div className="grid grid-cols-2 gap-16">
+      <div className="max-w-7xl mx-auto px-4 py-8 md:px-8 md:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
           {/* Booking Form */}
           <div>
-            <h2 className="text-3xl font-bold text-charcoal font-display mb-6">{t.reservations.bookTitle}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-charcoal font-display mb-6">{t.reservations.bookTitle}</h2>
             <div className="bg-white rounded-xl shadow-md p-8">
               {submitted ? (
                 <div className="text-center py-12">
@@ -86,7 +86,7 @@ function Reservations() {
                       placeholder={t.reservations.emailPlaceholder}
                     />
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-charcoal mb-1">{t.reservations.dateLabel}</label>
                       <input
@@ -149,7 +149,7 @@ function Reservations() {
 
           {/* Location & Hours */}
           <div>
-            <h2 className="text-3xl font-bold text-charcoal font-display mb-6">{t.reservations.findTitle}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-charcoal font-display mb-6">{t.reservations.findTitle}</h2>
             <div className="space-y-6">
               <div className="bg-white rounded-xl shadow-md overflow-hidden">
                 <div className="bg-light-gold h-56 flex items-center justify-center">
@@ -181,7 +181,7 @@ function Reservations() {
                   <a href={`mailto:${t.reservations.largeEmail}`} className="text-deep-red hover:underline">
                     {t.reservations.largeEmail}
                   </a>{' '}
-                  or call {t.reservations.largePhone}.
+                  {t.reservations.largeOrCall} {t.reservations.largePhone}.
                 </p>
               </div>
             </div>
