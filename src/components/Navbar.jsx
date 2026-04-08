@@ -1,9 +1,11 @@
+import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 
 function Navbar() {
   const location = useLocation()
-  const { t } = useLanguage()
+  const [menuOpen, setMenuOpen] = useState(false)
+  const { t, toggleLanguage } = useLanguage()
 
   const links = [
     { to: '/menu', label: t.nav.menu },
@@ -25,7 +27,8 @@ function Navbar() {
             </p>
           </div>
         </Link>
-        <div className="flex gap-8">
+        <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-white text-2xl">☰</button>
+        <div className="hidden md:flex gap-8 items-center">
           {links.map((link) => (
             <Link
               key={link.to}
@@ -39,8 +42,38 @@ function Navbar() {
               {link.label}
             </Link>
           ))}
+          <button
+            onClick={toggleLanguage}
+            className="text-sm font-medium tracking-wide text-gold border border-gold px-3 py-1 rounded hover:bg-gold hover:text-charcoal transition-colors cursor-pointer bg-transparent"
+          >
+            {t.langSwitch}
+          </button>
         </div>
       </div>
+      {menuOpen && (
+        <div className="md:hidden flex flex-col gap-4 px-8 pb-5">
+          {links.map((link) => (
+            <Link
+              key={link.to}
+              to={link.to}
+              onClick={() => setMenuOpen(false)}
+              className={`text-sm font-medium tracking-wide no-underline transition-colors ${
+                location.pathname === link.to
+                  ? 'text-gold'
+                  : 'text-white/80 hover:text-white'
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
+          <button
+            onClick={() => { toggleLanguage(); setMenuOpen(false); }}
+            className="text-sm font-medium tracking-wide text-gold border border-gold px-3 py-1 rounded hover:bg-gold hover:text-charcoal transition-colors cursor-pointer bg-transparent w-fit"
+          >
+            {t.langSwitch}
+          </button>
+        </div>
+      )}
     </nav>
   )
 }
