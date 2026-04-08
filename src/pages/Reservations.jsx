@@ -23,31 +23,31 @@ function Reservations() {
 
   return (
     <div>
-      <div className="relative h-64 bg-cover bg-center flex items-center justify-center"
+      <div className="relative h-48 sm:h-56 lg:h-64 bg-cover bg-center flex items-center justify-center"
         style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&h=400&fit=crop)' }}>
         <div className="absolute inset-0 bg-black/50"></div>
-        <div className="relative text-center text-white z-10">
-          <h1 className="text-5xl font-bold font-display mb-2">{t.reservations.heroTitle}</h1>
-          <p className="text-lg text-white/80">{t.reservations.heroSubtitle}</p>
+        <div className="relative text-center text-white z-10 px-4">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-display mb-2">{t.reservations.heroTitle}</h1>
+          <p className="text-base sm:text-lg text-white/80">{t.reservations.heroSubtitle}</p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-8 py-16">
-        <div className="grid grid-cols-2 gap-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16">
           {/* Booking Form */}
           <div>
-            <h2 className="text-3xl font-bold text-charcoal font-display mb-6">{t.reservations.bookTitle}</h2>
-            <div className="bg-white rounded-xl shadow-md p-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-charcoal font-display mb-4 sm:mb-6">{t.reservations.bookTitle}</h2>
+            <div className="bg-white rounded-xl shadow-md p-5 sm:p-6 lg:p-8">
               {submitted ? (
-                <div className="text-center py-12">
-                  <div className="text-5xl mb-4">&#127836;</div>
-                  <h3 className="text-2xl font-semibold text-charcoal mb-2">
+                <div className="text-center py-8 sm:py-10 lg:py-12">
+                  <div className="text-4xl sm:text-5xl mb-4">&#127836;</div>
+                  <h3 className="text-xl sm:text-2xl font-semibold text-charcoal mb-2">
                     {t.reservations.confirmed}
                   </h3>
-                  <p className="text-muted mb-2">
+                  <p className="text-muted text-sm sm:text-base mb-2">
                     {t.reservations.confirmMsg(formData.name, formData.guests, formData.date, formData.time)}
                   </p>
-                  <p className="text-muted text-sm">
+                  <p className="text-muted text-xs sm:text-sm">
                     {t.reservations.confirmEmail(formData.email)}
                   </p>
                   <button
@@ -61,7 +61,7 @@ function Reservations() {
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
                   <div>
                     <label className="block text-sm font-medium text-charcoal mb-1">{t.reservations.nameLabel}</label>
                     <input
@@ -70,7 +70,7 @@ function Reservations() {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold text-sm sm:text-base"
                       placeholder={t.reservations.namePlaceholder}
                     />
                   </div>
@@ -82,11 +82,11 @@ function Reservations() {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold text-sm sm:text-base"
                       placeholder={t.reservations.emailPlaceholder}
                     />
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-charcoal mb-1">{t.reservations.dateLabel}</label>
                       <input
@@ -95,7 +95,7 @@ function Reservations() {
                         value={formData.date}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold"
+                        className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold text-sm sm:text-base"
                       />
                     </div>
                     <div>
@@ -105,7 +105,7 @@ function Reservations() {
                         value={formData.time}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold"
+                        className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold text-sm sm:text-base"
                       >
                         <option value="">{t.reservations.timeDefault}</option>
                         <option value="11:30 AM">11:30 AM</option>
@@ -129,7 +129,7 @@ function Reservations() {
                       name="guests"
                       value={formData.guests}
                       onChange={handleChange}
-                      className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold text-sm sm:text-base"
                     >
                       {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
                         <option key={n} value={n}>{n} {n === 1 ? t.reservations.guest : t.reservations.guests}</option>
@@ -138,7 +138,7 @@ function Reservations() {
                   </div>
                   <button
                     type="submit"
-                    className="w-full bg-deep-red text-white py-3 rounded-lg font-semibold hover:bg-deep-red/90 transition-colors cursor-pointer"
+                    className="w-full bg-deep-red text-white py-2.5 sm:py-3 rounded-lg font-semibold hover:bg-deep-red/90 transition-colors cursor-pointer"
                   >
                     {t.reservations.submit}
                   </button>
@@ -149,34 +149,34 @@ function Reservations() {
 
           {/* Location & Hours */}
           <div>
-            <h2 className="text-3xl font-bold text-charcoal font-display mb-6">{t.reservations.findTitle}</h2>
-            <div className="space-y-6">
+            <h2 className="text-2xl sm:text-3xl font-bold text-charcoal font-display mb-4 sm:mb-6">{t.reservations.findTitle}</h2>
+            <div className="space-y-4 sm:space-y-6">
               <div className="bg-white rounded-xl shadow-md overflow-hidden">
-                <div className="bg-light-gold h-56 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="text-4xl mb-2">&#128205;</div>
-                    <p className="text-warm-brown font-medium text-sm">{t.reservations.address}</p>
-                    <p className="text-warm-brown/70 text-sm">{t.reservations.city}</p>
-                    <p className="text-xs text-warm-brown/50 mt-2 italic">{t.reservations.mapNote}</p>
+                <div className="bg-light-gold h-40 sm:h-48 lg:h-56 flex items-center justify-center">
+                  <div className="text-center px-4">
+                    <div className="text-3xl sm:text-4xl mb-2">&#128205;</div>
+                    <p className="text-warm-brown font-medium text-xs sm:text-sm">{t.reservations.address}</p>
+                    <p className="text-warm-brown/70 text-xs sm:text-sm">{t.reservations.city}</p>
+                    <p className="text-[10px] sm:text-xs text-warm-brown/50 mt-2 italic">{t.reservations.mapNote}</p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-white rounded-xl shadow-md p-6">
-                <h3 className="text-xl font-bold text-charcoal font-display mb-4">{t.reservations.hoursTitle}</h3>
-                <div className="space-y-3">
+              <div className="bg-white rounded-xl shadow-md p-4 sm:p-5 lg:p-6">
+                <h3 className="text-lg sm:text-xl font-bold text-charcoal font-display mb-3 sm:mb-4">{t.reservations.hoursTitle}</h3>
+                <div className="space-y-2 sm:space-y-3">
                   {t.reservations.hours.map((h) => (
-                    <div key={h.day} className="flex justify-between items-center py-2 border-b border-gray-100 last:border-0">
-                      <span className="text-charcoal font-medium text-sm">{h.day}</span>
-                      <span className="text-muted text-sm">{h.time}</span>
+                    <div key={h.day} className="flex justify-between items-center py-1.5 sm:py-2 border-b border-gray-100 last:border-0">
+                      <span className="text-charcoal font-medium text-xs sm:text-sm">{h.day}</span>
+                      <span className="text-muted text-xs sm:text-sm">{h.time}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="bg-cream rounded-xl p-6">
-                <h3 className="text-lg font-bold text-charcoal font-display mb-2">{t.reservations.largeTitle}</h3>
-                <p className="text-muted text-sm leading-relaxed">
+              <div className="bg-cream rounded-xl p-4 sm:p-5 lg:p-6">
+                <h3 className="text-base sm:text-lg font-bold text-charcoal font-display mb-2">{t.reservations.largeTitle}</h3>
+                <p className="text-muted text-xs sm:text-sm leading-relaxed">
                   {t.reservations.largeText}{' '}
                   <a href={`mailto:${t.reservations.largeEmail}`} className="text-deep-red hover:underline">
                     {t.reservations.largeEmail}
