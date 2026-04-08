@@ -35,12 +35,12 @@ function MenuCard({ item, tItem }) {
           e.target.src = `https://placehold.co/400x300/F5E6C8/8B6914?text=${encodeURIComponent(tItem.name)}`
         }}
       />
-      <div className="p-4">
+      <div className="p-3 sm:p-4">
         <div className="flex justify-between items-start mb-2">
-          <h3 className="text-lg font-semibold text-charcoal font-display">{tItem.name}</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-charcoal font-display">{tItem.name}</h3>
           <span className="text-deep-red font-bold">${item.price}</span>
         </div>
-        <p className="text-muted text-sm leading-relaxed">{tItem.description}</p>
+        <p className="text-muted text-xs sm:text-sm leading-relaxed">{tItem.description}</p>
       </div>
     </div>
   )
@@ -49,11 +49,11 @@ function MenuCard({ item, tItem }) {
 function MenuSection({ sectionKey, itemKeys, t }) {
   const section = t.menu[sectionKey]
   return (
-    <section className="mb-16">
-      <h2 className="text-3xl font-bold text-charcoal font-display text-center mb-2">{section.title}</h2>
-      <p className="text-muted text-center mb-2">{section.subtitle}</p>
-      <div className="w-16 h-0.5 bg-gold mx-auto mb-10"></div>
-      <div className="grid grid-cols-4 gap-6">
+    <section className="mb-10 sm:mb-12 lg:mb-16">
+      <h2 className="text-2xl sm:text-3xl font-bold text-charcoal font-display text-center mb-2">{section.title}</h2>
+      <p className="text-muted text-center text-sm sm:text-base mb-2">{section.subtitle}</p>
+      <div className="w-16 h-0.5 bg-gold mx-auto mb-6 sm:mb-8 lg:mb-10"></div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
         {itemKeys.map((key) => (
           <MenuCard key={key} item={{ image: menuImages[key], price: menuPrices[key] }} tItem={t.menu.items[key]} />
         ))}
@@ -67,15 +67,15 @@ function Menu() {
 
   return (
     <div>
-      <div className="relative h-64 bg-cover bg-center flex items-center justify-center"
+      <div className="relative h-48 sm:h-56 lg:h-64 bg-cover bg-center flex items-center justify-center"
         style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1614563637806-1d0e645e0940?w=1200&h=400&fit=crop)' }}>
         <div className="absolute inset-0 bg-black/50"></div>
-        <div className="relative text-center text-white z-10">
-          <h1 className="text-5xl font-bold font-display mb-2">{t.menu.heroTitle}</h1>
-          <p className="text-lg text-white/80">{t.menu.heroSubtitle}</p>
+        <div className="relative text-center text-white z-10 px-4">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-display mb-2">{t.menu.heroTitle}</h1>
+          <p className="text-base sm:text-lg text-white/80">{t.menu.heroSubtitle}</p>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-8 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
         {menuSections.map((s) => (
           <MenuSection key={s.key} sectionKey={s.key} itemKeys={s.items} t={t} />
         ))}
