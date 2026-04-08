@@ -1,15 +1,13 @@
 import { Link, useLocation } from 'react-router-dom'
-import { useLanguage } from '../context/LanguageContext'
+
+const links = [
+  { to: '/menu', label: 'MENU' },
+  { to: '/our-story', label: 'OUR STORY' },
+  { to: '/reservations', label: 'RESERVATIONS' },
+]
 
 function Navbar() {
   const location = useLocation()
-  const { t } = useLanguage()
-
-  const links = [
-    { to: '/menu', label: t.nav.menu },
-    { to: '/our-story', label: t.nav.ourStory },
-    { to: '/reservations', label: t.nav.reservations },
-  ]
 
   return (
     <nav className="bg-charcoal">
@@ -18,10 +16,10 @@ function Navbar() {
           <span className="text-3xl">&#127836;</span>
           <div>
             <h1 className="text-2xl font-bold text-white m-0 leading-tight tracking-wide font-display">
-              {t.brand.name}
+              ICHIBAN RAMEN
             </h1>
             <p className="text-gold text-xs tracking-widest m-0">
-              {t.brand.tagline}
+              AUTHENTIC JAPANESE NOODLES
             </p>
           </div>
         </Link>
