@@ -22,16 +22,16 @@ function Footer() {
           <div>
             <h4 className="text-gold font-semibold text-sm tracking-wider mb-4">{t.footer.quickLinks}</h4>
             <div className="flex flex-col gap-2">
-              <Link to="/menu" className="text-white/70 hover:text-white text-sm no-underline transition-colors">{t.footer.menuLink}</Link>
-              <Link to="/our-story" className="text-white/70 hover:text-white text-sm no-underline transition-colors">{t.footer.ourStoryLink}</Link>
-              <Link to="/reservations" className="text-white/70 hover:text-white text-sm no-underline transition-colors">{t.footer.reservationsLink}</Link>
+              <Link to="/menu" className="text-white/70 hover:text-white text-sm no-underline transition-colors">{t.footer.menu}</Link>
+              <Link to="/our-story" className="text-white/70 hover:text-white text-sm no-underline transition-colors">{t.footer.ourStory}</Link>
+              <Link to="/reservations" className="text-white/70 hover:text-white text-sm no-underline transition-colors">{t.footer.reservations}</Link>
             </div>
           </div>
           <div>
             <h4 className="text-gold font-semibold text-sm tracking-wider mb-4">{t.footer.visitUs}</h4>
             <div className="text-white/70 text-sm space-y-1">
-              <p>{t.footer.address}</p>
-              <p>{t.footer.city}</p>
+              <p>{t.reservations.address}</p>
+              <p>{t.reservations.city}</p>
               <p className="mt-3">{t.footer.phone}</p>
               <p>{t.footer.email}</p>
             </div>

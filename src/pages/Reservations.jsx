@@ -27,8 +27,8 @@ function Reservations() {
         style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&h=400&fit=crop)' }}>
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative text-center text-white z-10">
-          <h1 className="text-5xl font-bold font-display mb-2">{t.reservations.heroTitle}</h1>
-          <p className="text-lg text-white/80">{t.reservations.heroSubtitle}</p>
+          <h1 className="text-5xl font-bold font-display mb-2">{t.reservations.pageTitle}</h1>
+          <p className="text-lg text-white/80">{t.reservations.pageSubtitle}</p>
         </div>
       </div>
 
@@ -42,13 +42,17 @@ function Reservations() {
                 <div className="text-center py-12">
                   <div className="text-5xl mb-4">&#127836;</div>
                   <h3 className="text-2xl font-semibold text-charcoal mb-2">
-                    {t.reservations.confirmed}
+                    {t.reservations.confirmTitle}
                   </h3>
                   <p className="text-muted mb-2">
-                    {t.reservations.confirmMsg(formData.name, formData.guests, formData.date, formData.time)}
+                    {t.reservations.confirmMessage
+                      .replace('{name}', formData.name)
+                      .replace('{guests}', formData.guests)
+                      .replace('{date}', formData.date)
+                      .replace('{time}', formData.time)}
                   </p>
                   <p className="text-muted text-sm">
-                    {t.reservations.confirmEmail(formData.email)}
+                    {t.reservations.confirmEmail.replace('{email}', formData.email)}
                   </p>
                   <button
                     onClick={() => {
@@ -63,7 +67,7 @@ function Reservations() {
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
-                    <label className="block text-sm font-medium text-charcoal mb-1">{t.reservations.nameLabel}</label>
+                    <label className="block text-sm font-medium text-charcoal mb-1">{t.reservations.formName}</label>
                     <input
                       type="text"
                       name="name"
@@ -71,11 +75,11 @@ function Reservations() {
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold"
-                      placeholder={t.reservations.namePlaceholder}
+                      placeholder={t.reservations.formNamePlaceholder}
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-charcoal mb-1">{t.reservations.emailLabel}</label>
+                    <label className="block text-sm font-medium text-charcoal mb-1">{t.reservations.formEmail}</label>
                     <input
                       type="email"
                       name="email"
@@ -83,12 +87,12 @@ function Reservations() {
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold"
-                      placeholder={t.reservations.emailPlaceholder}
+                      placeholder={t.reservations.formEmailPlaceholder}
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-charcoal mb-1">{t.reservations.dateLabel}</label>
+                      <label className="block text-sm font-medium text-charcoal mb-1">{t.reservations.formDate}</label>
                       <input
                         type="date"
                         name="date"
@@ -99,7 +103,7 @@ function Reservations() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-charcoal mb-1">{t.reservations.timeLabel}</label>
+                      <label className="block text-sm font-medium text-charcoal mb-1">{t.reservations.formTime}</label>
                       <select
                         name="time"
                         value={formData.time}
@@ -107,7 +111,7 @@ function Reservations() {
                         required
                         className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold"
                       >
-                        <option value="">{t.reservations.timeDefault}</option>
+                        <option value="">{t.reservations.formTimeSelect}</option>
                         <option value="11:30 AM">11:30 AM</option>
                         <option value="12:00 PM">12:00 PM</option>
                         <option value="12:30 PM">12:30 PM</option>
@@ -124,7 +128,7 @@ function Reservations() {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-charcoal mb-1">{t.reservations.partySizeLabel}</label>
+                    <label className="block text-sm font-medium text-charcoal mb-1">{t.reservations.formGuests}</label>
                     <select
                       name="guests"
                       value={formData.guests}
@@ -132,7 +136,7 @@ function Reservations() {
                       className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold"
                     >
                       {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-                        <option key={n} value={n}>{n} {n === 1 ? t.reservations.guest : t.reservations.guests}</option>
+                        <option key={n} value={n}>{n} {n === 1 ? t.reservations.formGuestSingular : t.reservations.formGuestPlural}</option>
                       ))}
                     </select>
                   </div>
@@ -140,7 +144,7 @@ function Reservations() {
                     type="submit"
                     className="w-full bg-deep-red text-white py-3 rounded-lg font-semibold hover:bg-deep-red/90 transition-colors cursor-pointer"
                   >
-                    {t.reservations.submit}
+                    {t.reservations.formSubmit}
                   </button>
                 </form>
               )}
@@ -175,13 +179,13 @@ function Reservations() {
               </div>
 
               <div className="bg-cream rounded-xl p-6">
-                <h3 className="text-lg font-bold text-charcoal font-display mb-2">{t.reservations.largeTitle}</h3>
+                <h3 className="text-lg font-bold text-charcoal font-display mb-2">{t.reservations.largePartiesTitle}</h3>
                 <p className="text-muted text-sm leading-relaxed">
-                  {t.reservations.largeText}{' '}
-                  <a href={`mailto:${t.reservations.largeEmail}`} className="text-deep-red hover:underline">
-                    {t.reservations.largeEmail}
+                  {t.reservations.largePartiesText}{' '}
+                  <a href="mailto:reservations@ichibanramen.com" className="text-deep-red hover:underline">
+                    reservations@ichibanramen.com
                   </a>{' '}
-                  or call {t.reservations.largePhone}.
+                  {t.reservations.largePartiesPhone}
                 </p>
               </div>
             </div>

@@ -9,8 +9,8 @@ function OurStory() {
         style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1554502078-ef0fc409efce?w=1200&h=400&fit=crop)' }}>
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative text-center text-white z-10">
-          <h1 className="text-5xl font-bold font-display mb-2">{t.ourStory.heroTitle}</h1>
-          <p className="text-lg text-white/80">{t.ourStory.heroSubtitle}</p>
+          <h1 className="text-5xl font-bold font-display mb-2">{t.ourStory.pageTitle}</h1>
+          <p className="text-lg text-white/80">{t.ourStory.pageSubtitle}</p>
         </div>
       </div>
 
