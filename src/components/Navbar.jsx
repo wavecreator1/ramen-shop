@@ -27,6 +27,7 @@ function Navbar() {
             </p>
           </div>
         </Link>
+
         {/* Desktop nav links */}
         <div className="hidden md:flex items-center gap-8">
           {links.map((link) => (
