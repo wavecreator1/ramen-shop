@@ -3,7 +3,7 @@ import { useLanguage } from '../context/LanguageContext'
 
 function Navbar() {
   const location = useLocation()
-  const { t } = useLanguage()
+  const { t, language, toggleLanguage } = useLanguage()
 
   const links = [
     { to: '/menu', label: t.nav.menu },
@@ -40,6 +40,12 @@ function Navbar() {
             </Link>
           ))}
         </div>
+        <button
+          onClick={toggleLanguage}
+          className="text-sm font-medium text-white/80 hover:text-white bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-md transition-colors cursor-pointer"
+        >
+          {language === 'en' ? 'JA' : 'EN'}
+        </button>
       </div>
     </nav>
   )
