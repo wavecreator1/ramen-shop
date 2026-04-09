@@ -1,9 +1,11 @@
+import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 
 function Navbar() {
   const location = useLocation()
-  const { t } = useLanguage()
+  const { t, language, toggleLanguage } = useLanguage()
+  const [menuOpen, setMenuOpen] = useState(false)
 
   const links = [
     { to: '/menu', label: t.nav.menu },
@@ -25,7 +27,10 @@ function Navbar() {
             </p>
           </div>
         </Link>
-        <div className="flex gap-8">
+        <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-white text-2xl">
+          {menuOpen ? '✕' : '☰'}
+        </button>
+        <div className="hidden md:flex items-center gap-8">
           {links.map((link) => (
             <Link
               key={link.to}
@@ -39,8 +44,30 @@ function Navbar() {
               {link.label}
             </Link>
           ))}
+          <button
+            onClick={toggleLanguage}
+            className="text-sm font-medium tracking-wide text-white/80 hover:text-white transition-colors bg-transparent border border-white/30 rounded px-3 py-1 cursor-pointer"
+          >
+            {language === 'en' ? '日本語' : 'EN'}
+          </button>
         </div>
       </div>
+      {menuOpen && (
+        <div className="md:hidden bg-charcoal border-t border-white/10 px-8 py-4 flex flex-col gap-3">
+          {links.map((link) => (
+            <Link key={link.to} to={link.to} onClick={() => setMenuOpen(false)}
+              className={`text-sm font-medium tracking-wide no-underline transition-colors ${location.pathname === link.to ? 'text-gold' : 'text-white/80 hover:text-white'}`}>
+              {link.label}
+            </Link>
+          ))}
+          <button
+            onClick={toggleLanguage}
+            className="text-sm font-medium text-white/80 hover:text-white transition-colors bg-transparent border border-white/30 rounded px-3 py-1 cursor-pointer"
+          >
+            {language === 'en' ? '日本語' : 'EN'}
+          </button>
+        </div>
+      )}
     </nav>
   )
 }
