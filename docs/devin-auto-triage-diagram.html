@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devin Auto-Triage Flow</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0f1117;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #e1e4e8;
+    padding: 40px 20px;
+  }
+
+  .container {
+    width: 1100px;
+    position: relative;
+  }
+
+  .title {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .title h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+
+  .title p {
+    font-size: 14px;
+    color: #8b949e;
+    font-weight: 400;
+  }
+
+  /* Flow rows */
+  .flow-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .flow-row.spread {
+    justify-content: center;
+    gap: 60px;
+  }
+
+  /* Nodes */
+  .node {
+    position: relative;
+    border-radius: 14px;
+    padding: 18px 28px;
+    text-align: center;
+    min-width: 200px;
+    transition: transform 0.2s;
+  }
+
+  .node .icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .node .label {
+    font-size: 14px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .node .sublabel {
+    font-size: 11px;
+    font-weight: 400;
+    opacity: 0.7;
+    display: block;
+  }
+
+  /* Node styles */
+  .node-error {
+    background: linear-gradient(135deg, #da3633 0%, #b62324 100%);
+    border: 1px solid #f8514966;
+    box-shadow: 0 0 30px rgba(218, 54, 51, 0.2);
+  }
+
+  .node-datadog {
+    background: linear-gradient(135deg, #632ca6 0%, #4a1d80 100%);
+    border: 1px solid #7c3aed66;
+    box-shadow: 0 0 20px rgba(99, 44, 166, 0.2);
+  }
+
+  .node-sentry {
+    background: linear-gradient(135deg, #362d59 0%, #2b2145 100%);
+    border: 1px solid #6c5ce766;
+    box-shadow: 0 0 20px rgba(54, 45, 89, 0.2);
+  }
+
+  .node-slack {
+    background: linear-gradient(135deg, #4a154b 0%, #36103b 100%);
+    border: 1px solid #e01e5a44;
+    box-shadow: 0 0 20px rgba(74, 21, 75, 0.2);
+  }
+
+  .node-devin {
+    background: linear-gradient(135deg, #1a8cff 0%, #0066cc 100%);
+    border: 1px solid #58a6ff66;
+    box-shadow: 0 0 30px rgba(26, 140, 255, 0.2);
+    min-width: 260px;
+  }
+
+  .node-source {
+    background: linear-gradient(135deg, #1c2333 0%, #161b22 100%);
+    border: 1px solid #30363d;
+    min-width: 160px;
+    padding: 14px 20px;
+  }
+
+  .node-pr {
+    background: linear-gradient(135deg, #238636 0%, #1a6b2a 100%);
+    border: 1px solid #3fb95066;
+    box-shadow: 0 0 30px rgba(35, 134, 54, 0.2);
+    min-width: 280px;
+  }
+
+  .node-qa {
+    background: linear-gradient(135deg, #0d8a72 0%, #0a6e5b 100%);
+    border: 1px solid #2ea08366;
+    box-shadow: 0 0 20px rgba(13, 138, 114, 0.15);
+    min-width: 280px;
+  }
+
+  /* Arrows */
+  .arrow-down {
+    display: flex;
+    justify-content: center;
+    margin: 6px 0;
+  }
+
+  .arrow-down svg {
+    filter: drop-shadow(0 0 4px rgba(139, 148, 158, 0.3));
+  }
+
+  .arrow-split {
+    display: flex;
+    justify-content: center;
+    margin: 6px 0;
+    position: relative;
+  }
+
+  /* Connector lines */
+  .connector-area {
+    position: relative;
+    height: 60px;
+    margin: 6px 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .connector-area svg {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Phase labels */
+  .phase-label {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #484f58;
+    padding: 8px 4px;
+    border-right: 2px solid #21262d;
+  }
+
+  /* Step numbers */
+  .step-num {
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #21262d;
+    border: 1px solid #30363d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: #8b949e;
+  }
+
+  /* Three-source row */
+  .source-row {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 16px;
+  }
+
+  /* Dashed group box */
+  .group-box {
+    border: 1.5px dashed #30363d;
+    border-radius: 16px;
+    padding: 24px 32px;
+    position: relative;
+    margin: 0 auto;
+    display: inline-block;
+  }
+
+  .group-box .group-label {
+    position: absolute;
+    top: -10px;
+    left: 24px;
+    background: #0f1117;
+    padding: 0 10px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #58a6ff;
+  }
+
+  .vm-container {
+    text-align: center;
+  }
+
+  .vm-container .group-box {
+    margin-top: 0;
+  }
+
+  /* Merge arrows area */
+  .merge-area {
+    position: relative;
+    height: 50px;
+    margin: 6px 0;
+  }
+
+  .merge-area svg {
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    font-size: 11px;
+    color: #484f58;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="title">
+    <h1>Devin Async Auto-Triage Pipeline</h1>
+    <p>Dashboard Error &rarr; Observability &rarr; Slack &rarr; Devin Agent &rarr; PR in Devin Review</p>
+  </div>
+
+  <!-- Step 1: Dashboard Error -->
+  <div class="flow-row">
+    <div class="node node-error">
+      <span class="icon">&#9888;&#65039;</span>
+      <span class="label">Dashboard Error</span>
+      <span class="sublabel">Application throws an error</span>
+    </div>
+  </div>
+
+  <!-- Arrow: split to Datadog & Sentry -->
+  <div class="connector-area" style="height: 70px;">
+    <svg width="520" height="70" viewBox="0 0 520 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- center line down -->
+      <line x1="260" y1="0" x2="260" y2="25" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <!-- split left -->
+      <path d="M260 25 Q260 40, 130 40 L130 55" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+      <!-- split right -->
+      <path d="M260 25 Q260 40, 390 40 L390 55" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+      <!-- arrowheads -->
+      <polygon points="126,55 130,65 134,55" fill="#8b949e"/>
+      <polygon points="386,55 390,65 394,55" fill="#8b949e"/>
+    </svg>
+  </div>
+
+  <!-- Step 2: Datadog & Sentry -->
+  <div class="flow-row spread">
+    <div class="node node-datadog">
+      <span class="icon">&#128054;</span>
+      <span class="label">Datadog</span>
+      <span class="sublabel">Metrics, Logs, APM Traces</span>
+    </div>
+    <div class="node node-sentry">
+      <span class="icon">&#128737;&#65039;</span>
+      <span class="label">Sentry</span>
+      <span class="sublabel">Error Tracking, Stack Traces</span>
+    </div>
+  </div>
+
+  <!-- Arrow: merge to Slack -->
+  <div class="connector-area" style="height: 70px;">
+    <svg width="520" height="70" viewBox="0 0 520 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- left line down -->
+      <path d="M130 0 L130 20 Q130 35, 260 35 L260 55" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+      <!-- right line down -->
+      <path d="M390 0 L390 20 Q390 35, 260 35" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+      <!-- arrowhead -->
+      <polygon points="256,55 260,65 264,55" fill="#8b949e"/>
+      <!-- label -->
+      <text x="260" y="28" text-anchor="middle" fill="#8b949e" font-size="10" font-family="Inter, sans-serif">Alert Notification</text>
+    </svg>
+  </div>
+
+  <!-- Step 3: Slack -->
+  <div class="flow-row">
+    <div class="node node-slack">
+      <span class="icon">&#128172;</span>
+      <span class="label">Slack</span>
+      <span class="sublabel">#devin-triage channel receives alert</span>
+    </div>
+  </div>
+
+  <!-- Arrow down: Slack kicks off agent -->
+  <div class="arrow-down">
+    <svg width="40" height="50" viewBox="0 0 40 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="20" y1="0" x2="20" y2="38" stroke="#58a6ff" stroke-width="2"/>
+      <polygon points="14,36 20,48 26,36" fill="#58a6ff"/>
+      <text x="32" y="24" fill="#58a6ff" font-size="9" font-family="Inter, sans-serif" transform="rotate(0)"></text>
+    </svg>
+  </div>
+
+  <div style="text-align:center; margin-bottom: 8px;">
+    <span style="font-size:10px; font-weight:600; color:#58a6ff; text-transform:uppercase; letter-spacing:1.5px;">Triggers Async Agent</span>
+  </div>
+
+  <!-- Step 4: Micro VM with Devin Agent -->
+  <div class="vm-container">
+    <div class="group-box">
+      <span class="group-label">Micro VM</span>
+      <div style="margin-bottom: 16px;">
+        <div class="node node-devin" style="margin: 0 auto;">
+          <span class="icon">&#129302;</span>
+          <span class="label">Devin Agent</span>
+          <span class="sublabel">Async triage & analysis on isolated VM</span>
+        </div>
+      </div>
+
+      <!-- Arrows: agent pulls from 3 sources -->
+      <div class="connector-area" style="height: 55px;">
+        <svg width="600" height="55" viewBox="0 0 600 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- center up -->
+          <line x1="300" y1="0" x2="300" y2="40" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <polygon points="296,38 300,48 304,38" fill="#58a6ff"/>
+          <!-- left split -->
+          <path d="M300 0 Q300 15, 140 15 L140 40" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+          <polygon points="136,38 140,48 144,38" fill="#58a6ff"/>
+          <!-- right split -->
+          <path d="M300 0 Q300 15, 460 15 L460 40" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+          <polygon points="456,38 460,48 464,38" fill="#58a6ff"/>
+          <!-- label -->
+          <text x="300" y="8" text-anchor="middle" fill="#484f58" font-size="9" font-family="Inter, sans-serif">Pulls Context</text>
+        </svg>
+      </div>
+
+      <!-- Three sources -->
+      <div class="source-row">
+        <div class="node node-source">
+          <span class="icon">&#128193;</span>
+          <span class="label">Your Repo</span>
+          <span class="sublabel">Code & Config</span>
+        </div>
+        <div class="node node-source">
+          <span class="icon">&#128054;</span>
+          <span class="label">Datadog Logs</span>
+          <span class="sublabel">APM & Runtime Data</span>
+        </div>
+        <div class="node node-source">
+          <span class="icon">&#128737;&#65039;</span>
+          <span class="label">Sentry Context</span>
+          <span class="sublabel">Errors & Stack Traces</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrow down to PR -->
+  <div class="arrow-down" style="margin-top: 16px;">
+    <svg width="40" height="50" viewBox="0 0 40 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="20" y1="0" x2="20" y2="38" stroke="#3fb950" stroke-width="2"/>
+      <polygon points="14,36 20,48 26,36" fill="#3fb950"/>
+    </svg>
+  </div>
+
+  <div style="text-align:center; margin-bottom: 8px;">
+    <span style="font-size:10px; font-weight:600; color:#3fb950; text-transform:uppercase; letter-spacing:1.5px;">Creates Pull Request</span>
+  </div>
+
+  <!-- Step 5: PR in Devin Review -->
+  <div class="flow-row">
+    <div class="node node-pr">
+      <span class="icon">&#128230;</span>
+      <span class="label">PR in Devin Review</span>
+      <span class="sublabel">Auto-generated fix with full context & analysis</span>
+    </div>
+  </div>
+
+  <!-- Arrow down to Q&A -->
+  <div class="arrow-down">
+    <svg width="40" height="50" viewBox="0 0 40 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="20" y1="0" x2="20" y2="38" stroke="#2ea083" stroke-width="2"/>
+      <polygon points="14,36 20,48 26,36" fill="#2ea083"/>
+    </svg>
+  </div>
+
+  <div style="text-align:center; margin-bottom: 8px;">
+    <span style="font-size:10px; font-weight:600; color:#2ea083; text-transform:uppercase; letter-spacing:1.5px;">Interactive Review</span>
+  </div>
+
+  <!-- Step 6: Ask Questions -->
+  <div class="flow-row">
+    <div class="node node-qa">
+      <span class="icon">&#128488;&#65039;</span>
+      <span class="label">Ask Questions in Devin Review</span>
+      <span class="sublabel">Discuss changes, request modifications, iterate on the fix</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    Devin Auto-Triage Pipeline &mdash; From Error to Resolution, Fully Automated
+  </div>
+
+</div>
+</body>
+</html>
