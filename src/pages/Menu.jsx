@@ -27,14 +27,21 @@ const menuSections = [
 function MenuCard({ item, tItem }) {
   return (
     <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-      <img
-        src={item.image}
-        alt={tItem.name}
-        className="w-full h-48 object-cover"
-        onError={(e) => {
-          e.target.src = `https://placehold.co/400x300/F5E6C8/8B6914?text=${encodeURIComponent(tItem.name)}`
-        }}
-      />
+      <div className="relative">
+        {item.price < 50 && (
+          <span className="absolute top-2 left-2 bg-deep-red text-white text-xs font-bold px-2 py-1 rounded z-10">
+            Sale
+          </span>
+        )}
+        <img
+          src={item.image}
+          alt={tItem.name}
+          className="w-full h-48 object-cover"
+          onError={(e) => {
+            e.target.src = `https://placehold.co/400x300/F5E6C8/8B6914?text=${encodeURIComponent(tItem.name)}`
+          }}
+        />
+      </div>
       <div className="p-4">
         <div className="flex justify-between items-start mb-2">
           <h3 className="text-lg font-semibold text-charcoal font-display">{tItem.name}</h3>
